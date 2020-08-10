@@ -1,0 +1,48 @@
+<blockquote class="blockquote ml-5">
+  <h2>Books managment system</h2>
+  <footer class="blockquote-footer">
+      Using <i>Angular</i> and <i>Asp.Net Core</i>
+  </footer>
+</blockquote>
+
+<div class="grid-table">
+  <div class="thead">
+      <div class="tr">
+          <div class="td">ID</div>
+          <div class="td">Title</div>
+          <div class="td">Author</div>
+          <div class="td">Type</div>
+          <div class="td">
+              <button class="btn btn-outline-success" (click)="addBookForm()">
+                  <i class="fa fa-plus"></i> New Book
+              </button>
+          </div>
+      </div>
+  </div>
+  <div class="tbody">
+      <form class="tr" [formGroup]="fg" *ngFor="let fg of bookForms.controls; let i=index;" (submit)="recordSubmit(fg)">
+          <div class="td">
+              <input class="form-control" formControlName="id" readonly>
+          </div>
+          <div class="td">
+              <input class="form-control" formControlName="title">
+          </div>
+          <div class="td">
+              <input class="form-control" formControlName="author">
+          </div>
+          <div class="td">
+              <select class="form-control" formControlName="bookTypeId">
+                  <option value="0">Select</option>
+                  <option *ngFor="let item of bookTypesList" value="{{item.id}}">{{item.typeName}}</option>
+              </select>
+          </div>
+          <div class="td">
+              <button type="submit" class="btn btn-success" [disabled]="fg.invalid">
+                <i class="far fa-save fa-lg"></i> Submit</button>
+                <button class="btn btn-light ml-1" (click)="onDelete(fg.get('id').value,i)">
+                    <i class="far fa-trash-alt fa-lg text-danger"></i>
+                </button>
+          </div>
+      </form>
+  </div>
+</div>
